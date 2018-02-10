@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+</head>
+<body>
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#ffc600">
+  </div>
+
+  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+  <style>
+    :root {
+      /**
+       * [Styles base color with CSS Variable --base]
+       * @base
+       */
+      --base: #ffc600;
+      /**
+       * [Styles spacing with CSS Variable --base]
+       * @spacing
+       */
+      --spacing: 10px;
+      /**
+       * [Styles blur with CSS Variable --blur]
+       * @blur
+       */
+      --blur: 10px;
+    }
+
+    img {
+      /**
+       * [Uses the defined variable --spacing and is passed into padding]
+       * @padding
+       */
+      padding: var(--spacing);
+      /**
+       * [Uses the defined variable --base and is passed into the background color of the image]
+       * @background
+       */
+      background: var(--base);
+      /**
+       * [Uses the defined variable --blur and is passed into the blur property of the image]
+       * @blur
+       */
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      /**
+       * [Highlights the span class hl with the variable --base. Whatever color is picked from --base, hl will change to that color]
+       */
+      color: var(--base);
+    }
+
+    body {
+      text-align: center;
+      background: #193549;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    input {
+      width:100px;
+    }
+  </style>
+
+  <script>
+    /**
+     * [Grabs user input for --spacing --blur and --base controls]
+     */
+    const inputs = document.querySelectorAll('.controls input');
+    /**
+     * [handleUpdate function takes inputs and listens for change or mousemove by user and applies changes made to their values]
+     */
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+    /**
+     * [Listens for a value change for each input and calls handleUpdate]
+     * @change
+     */
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    /**
+     * [Listens for mouse movement, such as dragging the sliders, for each input and calls handleUpdate]
+     * @mousemove
+     */
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+  </script>
+
+</body>
+</html>
