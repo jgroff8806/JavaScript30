@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JavaScript + CSS Clock</title>
+  <title>JavaScript & CSS Clock</title>
 </head>
 <body>
     <div class="clock">
@@ -59,39 +59,119 @@
       background:black;
       position: absolute;
       top:50%;
-      transform-origin: 100%; /* Where the hand of the clock rotates off of on the x-axis */
-      transform: rotate(90deg); /* Rotates the hand of the clock to start at 12 o'clock or 90 degrees exactly */
-      transition: all 0.05s;  /* How often the clock hand will tick to the next degree */
-      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);  /* Styles how the clock hand rotates */
+
+      /**
+       * [Where the hand of the clock rotates off of on the x-axis]
+       * @origin
+       */
+      transform-origin: 100%;
+
+      /**
+       * [Rotates the hand of the clock to start at 12 o'clock or 90 degrees exactly]
+       * @rotate
+       */
+      transform: rotate(90deg);
+
+      /**
+       * [How often the clock hand will tick to the next degree]
+       */
+      transition: all 0.05s;
+
+      /**
+       * [Styles how the clock hand rotates]
+       */
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
-  const secondHand = document.querySelector('.second-hand'); // Returns the value of the seconds selector
-  const minsHand = document.querySelector('.min-hand'); // Returns the value of the minutes selector
-  const hourHand = document.querySelector('.hour-hand'); // Returns the value of the hour selector
+  /**
+   * [Returns the value of the seconds selector]
+   */
+  const secondHand = document.querySelector('.second-hand');
 
+  /**
+   * [Returns the value of the minutes selector]
+   */
+  const minsHand = document.querySelector('.min-hand');
+
+  /**
+   * [Returns the value of the hour selector]
+   */
+  const hourHand = document.querySelector('.hour-hand');
+
+
+/**
+ * [This function evaluates and sets date / time values]
+ */
   function setDate() {
-    const now = new Date(); // Grabs the current date
 
-    // secondHand arguments
-    const seconds = now.getSeconds(); // Grabs the seconds value of the current minute
-    const secondsDegrees = ((seconds / 60) * 360) + 90; // Converts seconds value into base 100 so it can be turned into degrees useable by clock hand
-    secondHand.style.transform = `rotate(${secondsDegrees}deg)`; // Styles the seconds clock hand to the corresponding degree depending upon the current second
+    /**
+     * [Grabs the current date]
+     * @type {Date}
+     */
+    const now = new Date();
 
-    // minsHand arguments
-    const mins = now.getMinutes(); // Grabs the minutes value of the current hour
-    const minsDegrees = ((mins / 60) * 360) + 90; // Converts minutes value into base 100 so it can be turned into degrees useable by minute clock hand
-    minsHand.style.transform = `rotate(${minsDegrees}deg)`; // Styles the minutes clock hand to the corresponding degree depending upon the current minute
+    /**
+     * [Grabs the seconds value of the current minute]
+     * @type {[type]}
+     */
+    const seconds = now.getSeconds();
 
-    // hourHand arguments
-    const hour = now.getMinutes(); // Grabs the minutes value of the current hour
-    const hourDegrees = ((mins / 12) * 360) + 90; // Converts minutes value into base 100 so it can be turned into degrees useable by hour clock hand
-    hourHand.style.transform = `rotate(${hourDegrees}deg)`; // Styles the hour clock hand to the corresponding degree depending upon the current hour
+    /**
+     * [Converts seconds value into base 100 so it can be turned into degrees useable by clock hand]
+     * @type {[type]}
+     */
+    const secondsDegrees = ((seconds / 60) * 360) + 90;
+
+    /**
+     * [Styles the seconds clock hand to the corresponding degree depending upon the current second]
+     * @type {[type]}
+     */
+    secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+    /**
+     * [Grabs the minutes value of the current hour]
+     * @type {[type]}
+     */
+    const mins = now.getMinutes();
+
+    /**
+     * [Converts minutes value into base 100 so it can be turned into degrees useable by minute clock hand]
+     * @type {[type]}
+     */
+    const minsDegrees = ((mins / 60) * 360) + 90;
+
+    /**
+     * [Styles the minutes clock hand to the corresponding degree depending upon the current minute]
+     * @type {[type]}
+     */
+    minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+    /**
+     * [Grabs the minutes value of the current hour]
+     * @type {[type]}
+     */
+    const hour = now.getMinutes();
+
+    /**
+     * [Converts minutes value into base 100 so it can be turned into degrees useable by hour clock hand]
+     * @type {[type]}
+     */
+    const hourDegrees = ((mins / 12) * 360) + 90;
+
+    /**
+     * [Styles the hour clock hand to the corresponding degree depending upon the current hour]
+     * @type {[type]}
+     */
+    hourHand.style.transform = `rotate(${hourDegrees}deg)`;
 }
 
-setInterval(setDate, 1000); // Calls the setDate function and runs it every 1000 ms or 1 second
+/**
+ * [Calls the setDate function and runs it every 1000 ms or 1 second]
+ */
+setInterval(setDate, 1000);
 </script>
 </body>
 </html>
